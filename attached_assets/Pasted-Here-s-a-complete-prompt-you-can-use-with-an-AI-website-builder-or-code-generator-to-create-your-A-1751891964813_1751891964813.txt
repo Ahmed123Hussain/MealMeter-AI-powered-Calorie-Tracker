@@ -1,0 +1,50 @@
+Here's a complete prompt you can use with an AI website builder or code generator to create your **AI-Powered Calorie Tracker Web App**:
+
+---
+
+**Prompt:**
+
+> Build a modern, responsive AI-powered **Calorie Tracker** web application using **ReactJS** for the frontend and **MongoDB** for the backend database.
+>
+> ### Core Features:
+>
+> * **AI Food Recognition**: Users can upload a picture of the food item they are eating. The app uses AI (e.g., image recognition with a pre-trained model or external API like Google Vision, Clarifai, or custom-trained model) to identify the food and estimate its **caloric content**.
+> * **Calorie Tracking Dashboard**: Each user has a personalized dashboard that:
+>
+>   * Displays their daily calorie intake.
+>   * Visualizes food history and total calories by date.
+>   * Offers calorie goals and comparison (based on age, gender, activity level).
+> * **Authentication System**:
+>
+>   * User login and signup pages.
+>   * Secure authentication with JWT.
+> * **User Profile Management**: Users can update their personal details (age, weight, goals, etc.) to help the AI make accurate calorie suggestions.
+>
+> ### Bonus Features:
+>
+> * **Personalized Healthy Suggestions**: Based on user's food habits, AI gives daily or weekly suggestions like healthier alternatives, balanced meals, or portion control tips.
+> * **Progress Tracker**: Track progress over weeks/months via visual graphs.
+> * **Dark Mode Toggle**.
+>
+> ### Tech Stack:
+>
+> * **Frontend**: ReactJS + Tailwind CSS (or any modern UI framework).
+> * **Backend**: Node.js + Express.
+> * **Database**: MongoDB (with Mongoose ORM).
+> * **AI Integration**: Food image recognition and calorie estimation using a 3rd-party API or custom-trained ML model (e.g., TensorFlow\.js or Python model accessed via Flask API).
+>
+> ### Pages Required:
+>
+> * **Home Page** with intro and CTA.
+> * **Signup Page**.
+> * **Login Page**.
+> * **Dashboard** (showing uploaded foods, calories, suggestions, charts).
+> * **Profile Page**.
+> * **Upload Page** (camera or image upload for food).
+> * **Settings Page**.
+>
+> Ensure the design is clean, mobile-friendly, and easy to use. Use cards, modals, and charts (e.g., Chart.js or Recharts) for data display. Enable image upload preview and real-time AI result display.
+
+---
+
+Would you like me to generate the **ReactJS boilerplate** or **MongoDB schema** as a starting point?
