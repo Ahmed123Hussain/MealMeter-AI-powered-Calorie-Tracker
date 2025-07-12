@@ -1,7 +1,3 @@
-<img width="1614" height="797" alt="image" src="https://github.com/user-attachments/assets/7208345d-b617-44a1-9a18-274b88481e2e" />
-<img width="1623" height="870" alt="image" src="https://github.com/user-attachments/assets/9c37d6a8-4d42-4cd9-86ce-61e461677a3b" />
-
-
 # 🥗 MealMeter – AI-Powered Calorie & Nutrition Tracker
 
 MealMeter is an AI-powered full-stack web application that enables users to track their daily and weekly nutritional intake effortlessly. By simply uploading a photo of their meal, users receive instant feedback on calorie content and macronutrient breakdown using advanced food image recognition powered by **Gemini 1.5 Flash**.
@@ -64,7 +60,10 @@ MealMeter is an AI-powered full-stack web application that enables users to trac
 ## 📷 UI Snapshots
 
 - 📊 Dashboard with daily stats & graphs  
-- 📁 Upload page with AI analysis  
+- 📁 Upload page with AI analysis
+- <img width="1623" height="870" alt="image" src="https://github.com/user-attachments/assets/6bca2a1a-3b93-4bf5-a6da-36cc8d036d2a" />
+<img width="1623" height="870" alt="image" src="https://github.com/user-attachments/assets/7ce888e4-ce1c-47ad-84d0-6ad3608f923f" />
+
 - 🧍 Profile with log history & preferences  
 
 ---
@@ -136,7 +135,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## 📜 License
 
-MIT License © \AZH
+MIT License 
 
 ---
 
@@ -148,5 +147,5 @@ Built with ❤️ by AZH
 
 ---
 
-Let me know if you'd like this converted into a downloadable file or deployed to GitHub with some sample data!
+Any projects or for sales connect me @ - ahmedibnzubair@gmail.com
 ```
