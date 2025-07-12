@@ -7,9 +7,11 @@ export const foodApi = {
     return response.json();
   },
 
-  getTodayEntries: async () => {
-    const response = await apiRequest('GET', '/api/food-entries/today');
-    return response.json();
+  getTodayEntries: async (token: string) => {
+    const res = await fetch('/api/food-entries/today', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return res.json();
   },
 
   createFoodEntry: async (data: Omit<InsertFoodEntry, 'userId'>) => {
@@ -42,13 +44,17 @@ export const foodApi = {
     return response.json();
   },
 
-  getDashboardStats: async () => {
-    const response = await apiRequest('GET', '/api/dashboard/stats');
-    return response.json();
+  getDashboardStats: async (token: string) => {
+    const res = await fetch('/api/dashboard/stats', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return res.json();
   },
 
-  getWeeklyData: async () => {
-    const response = await apiRequest('GET', '/api/dashboard/weekly');
-    return response.json();
+  getWeeklyData: async (token: string) => {
+    const res = await fetch('/api/dashboard/weekly', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return res.json();
   },
 };

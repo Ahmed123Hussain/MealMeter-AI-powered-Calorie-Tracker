@@ -27,7 +27,7 @@ export const Navbar = () => {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <BarChart3 className="w-5 h-5 text-white" />
               </div>
-              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-white">CalorieAI</span>
+              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-white">MealMeter</span>
             </Link>
           </div>
 

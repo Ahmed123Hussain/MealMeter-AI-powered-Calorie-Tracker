@@ -9,24 +9,26 @@ import { Link } from 'wouter';
 import { Plus, Zap, Activity, Droplets } from 'lucide-react';
 import { foodApi } from '../lib/food-data';
 import { useToast } from '../hooks/use-toast';
+import { useAuth } from '../context/auth-context';
 
 export default function Dashboard() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { token } = useAuth();
 
   const { data: stats, isLoading: statsLoading } = useQuery({
     queryKey: ['/api/dashboard/stats'],
-    queryFn: () => foodApi.getDashboardStats(),
+    queryFn: () => foodApi.getDashboardStats(token),
   });
 
   const { data: todayEntries, isLoading: entriesLoading } = useQuery({
     queryKey: ['/api/food-entries/today'],
-    queryFn: () => foodApi.getTodayEntries(),
+    queryFn: () => foodApi.getTodayEntries(token),
   });
 
   const { data: weeklyData, isLoading: weeklyLoading } = useQuery({
     queryKey: ['/api/dashboard/weekly'],
-    queryFn: () => foodApi.getWeeklyData(),
+    queryFn: () => foodApi.getWeeklyData(token),
   });
 
   const handleDeleteEntry = async (id: number) => {

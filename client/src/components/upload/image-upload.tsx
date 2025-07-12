@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -11,9 +11,10 @@ import { useToast } from '../../hooks/use-toast';
 
 interface ImageUploadProps {
   onFoodAdded: () => void;
+  token: string;
 }
 
-export const ImageUpload: React.FC<ImageUploadProps> = ({ onFoodAdded }) => {
+export const ImageUpload: React.FC<ImageUploadProps> = ({ onFoodAdded, token }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
@@ -100,6 +101,23 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onFoodAdded }) => {
         variant: "destructive",
       });
     }
+  };
+
+  const handleUpload = async (file: File) => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const response = await fetch('/api/ai/analyze-food', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+    setAnalysisResult(data);
+    onFoodAdded();
   };
 
   return (

@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import multer from "multer";
 import { insertUserSchema, insertFoodEntrySchema, loginSchema, updateProfileSchema } from "@shared/schema";
 import { z } from "zod";
+import axios from "axios";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
@@ -14,21 +15,77 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
 });
 
-// Mock AI food recognition service
-const mockAIFoodRecognition = async (imageBuffer: Buffer) => {
-  // Simulate AI processing delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  // Mock responses based on common foods
-  const mockFoods = [
-    { name: "Grilled Chicken Salad", calories: 387, protein: 28, carbs: 12, fat: 24, confidence: 0.94 },
-    { name: "Greek Yogurt & Berries", calories: 245, protein: 18, carbs: 30, fat: 6, confidence: 0.89 },
-    { name: "Avocado Toast", calories: 420, protein: 16, carbs: 35, fat: 28, confidence: 0.92 },
-    { name: "Grilled Salmon", calories: 267, protein: 25, carbs: 0, fat: 17, confidence: 0.96 },
-    { name: "Quinoa Bowl", calories: 315, protein: 12, carbs: 45, fat: 11, confidence: 0.87 },
-  ];
-  
-  return mockFoods[Math.floor(Math.random() * mockFoods.length)];
+// Gemini API configuration
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
+const GEMINI_API_KEY = "AIzaSyBC7yYwLu1VjyYhtTlvj9iMtlV92N2xTKI";
+
+// Gemini AI food recognition service
+const geminiFoodRecognition = async (imageBuffer: Buffer) => {
+  const base64Image = imageBuffer.toString("base64");
+
+  const requestBody = {
+    contents: [
+      {
+        parts: [
+          {
+            text: `Analyze this food image and return ONLY a valid JSON object with these keys:
+"name", "calories", "protein", "carbs", "fat", "confidence".
+Do NOT include any comments, explanations, or extra text.
+Example:
+{
+  "name": "Rice",
+  "calories": 130,
+  "protein": 2.7,
+  "carbs": 28,
+  "fat": 0.3,
+  "confidence": 0.95
+}
+`
+          },
+          {
+            inline_data: {
+              mime_type: "image/jpeg",
+              data: base64Image
+            }
+          }
+        ]
+      }
+    ]
+  };
+
+  try {
+    const response = await axios.post(
+      `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
+      requestBody,
+      { headers: { "Content-Type": "application/json" } }
+    );
+
+    console.log("Gemini response:", response.data);
+
+    const text = response.data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!text) {
+      console.error("Gemini response missing text:", response.data);
+      throw new Error("No food detected or Gemini API response format changed");
+    }
+
+    let result;
+    try {
+      // Remove triple backticks and optional "json" label
+      const cleanText = text
+        .replace(/```json/i, "")
+        .replace(/```/g, "")
+        .trim();
+      result = JSON.parse(cleanText);
+    } catch (err) {
+      console.error("Failed to parse Gemini response:", text);
+      throw new Error("Failed to parse Gemini response");
+    }
+
+    return result;
+  } catch (err: any) {
+    console.error("Gemini API error:", err.response?.data || err.message);
+    throw new Error("Gemini API request failed");
+  }
 };
 
 // Middleware to verify JWT
@@ -230,10 +287,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: 'No image provided' });
       }
 
-      const result = await mockAIFoodRecognition(req.file.buffer);
+      const result = await geminiFoodRecognition(req.file.buffer);
       res.json(result);
     } catch (error) {
-      res.status(500).json({ message: 'Internal server error' });
+      console.error("Gemini API error:", error);
+      res.status(500).json({ message: 'Internal server error', error: error.message });
     }
   });
 
