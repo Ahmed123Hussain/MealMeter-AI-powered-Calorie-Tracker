@@ -90,7 +90,7 @@ MealMeter is an AI-powered full-stack web application that enables users to trac
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/mealmeter.git
+https://github.com/Ahmed123Hussain/MealMeter-AI-powered-Calorie-Tracker.git
 cd mealmeter
 ````
 
