@@ -17,7 +17,7 @@ const upload = multer({
 
 // Gemini API configuration
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
-const GEMINI_API_KEY = "AIzaSyBC7yYwLu1VjyYhtTlvj9iMtlV92N2xTKI";
+const GEMINI_API_KEY = "YOUR API KEY";
 
 // Gemini AI food recognition service
 const geminiFoodRecognition = async (imageBuffer: Buffer) => {
